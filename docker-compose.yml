@@ -54,7 +54,7 @@ services:
             - 'sail-mysql:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
-            -  deck_builder_sail 
+            -  sail 
         healthcheck:
             test:
                 - CMD
@@ -113,7 +113,7 @@ services:
         networks:
             - sail
 networks:
-    deck_builder_sail :
+    sail :
         driver: bridge
 volumes:
     sail-mysql:

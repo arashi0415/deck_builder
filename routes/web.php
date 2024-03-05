@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Model;
 */
 
 Route::get('/', function () {
-    return 'test2';
+    return 'test3';
 });
 
 Route::get('/dashboard', function () {

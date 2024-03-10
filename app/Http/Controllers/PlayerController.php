@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Player;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,13 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        return view('Player');
+        $playerId = Auth::id();
+        $player = Player::where('id', $playerId)->first();
+
+// ログイン中のユーザーを取得
+        $user = $player->user;
+
+        return view('Player',$user);
     }
 
     /**

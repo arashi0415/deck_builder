@@ -10,21 +10,28 @@ class PlayerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        
         $playerId = Auth::id();
-        $player = Player::where('id', $playerId)->first();
+        $player = Player::where('user_id', $playerId)->first();
 
-// ログイン中のユーザーを取得
-        $user = $player->user;
+        $boolean = $request->input('boolean');
+        if (empty($boolean)) {
+            // 新規登録画面にリダイレクト
+            return view('newplayer');
+        }
 
-        return view('Player',$user);
+        if ($boolean === 1) {
+            // player.blade.php にリダイレクト
+            return view('player', compact('player'));
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -34,7 +41,39 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = (new Player)->rules;
+        $rules['mis_match'] = 'required';
+
+    // バリデーションメッセージ
+    $messages = [
+        'mis_match' => '入力に合っていない項目があります',
+    ];
+
+    // バリデーションエラー時の処理
+    $customHandler = function ($errors) {
+        return redirect()->back()->withInput()->withErrors($errors);
+    };
+
+    
+    // リクエストデータのバリデーション
+    $validatedData = $request->validate($rules, $messages, $customHandler);
+    
+    $iconFileName = uniqid() . '.' . $request->file('icon')->getClientOriginalExtension();
+    $request->file('icon')->storeAs('storage/app/public/icons', $iconFileName);
+
+    // favorite_card の処理
+    $favoriteCardFileName = uniqid() . '.' . $request->file('favorite_card')->getClientOriginalExtension();
+    $request->file('favorite_card')->storeAs('storage/app/public/favoriteCards', $favoriteCardFileName);
+
+    // Player モデルへの保存
+    $player = new Player();
+    $player->fill($validatedData);
+    $player->icon = $iconFileName;
+    $player->favorite_card = $favoriteCardFileName;
+    $player->save();
+
+    return redirect()->route('players.index', $player->id);
+
     }
 
     /**
@@ -58,7 +97,13 @@ class PlayerController extends Controller
      */
     public function update(Request $request, Player $player)
     {
-        //
+        $validatedData = $request->validate($player->rules());
+
+    // データを更新
+    $player->update($validatedData);
+
+    // 一覧画面にリダイレクト
+    return redirect()->route('players.index');
     }
 
     /**

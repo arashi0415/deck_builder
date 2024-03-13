@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Player;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PlayerController extends Controller
 {
@@ -42,8 +43,6 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
 {
-
-
     $dir_icons = 'icons';
     $dir_favoriteCards = 'favoriteCards';
 

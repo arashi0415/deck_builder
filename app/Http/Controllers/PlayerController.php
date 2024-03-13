@@ -44,14 +44,15 @@ class PlayerController extends Controller
 {
 
 
-    
+    $dir_icons = 'icons';
+    $dir_favoriteCards = 'favoriteCards';
 
     // ファイル処理
-    $iconFileName = uniqid() . '.' . $request->file('icon')->getClientOriginalExtension();
-    $request->file('icon')->storeAs('public/icons', $iconFileName);
+    $iconFileName = $request->file('icon')->getClientOriginalName();
+    $request->file('icon')->storeAs('public/' . $dir_icons, $iconFileName);
 
-    $favoriteCardFileName = uniqid() . '.' . $request->file('favorite_card')->getClientOriginalExtension();
-    $request->file('favorite_card')->storeAs('public/favoriteCards', $favoriteCardFileName);
+    $favoriteCardFileName = $request->file('favorite_card')->getClientOriginalName();
+    $request->file('favorite_card')->storeAs('public/' . $dir_favoriteCards, $favoriteCardFileName);
 
     // Player モデルの作成と保存
     $player = new Player([

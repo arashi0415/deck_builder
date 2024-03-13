@@ -13,28 +13,35 @@
                         <section id="profile" class="rounded-lg shadow-md">
                             <div class="mt-6">
                                 <div id="profile-icon" class="rounded-full w-16 h-16">
-                                    <input type="file" id="userIconInput" accept="image/*" onchange="previewImage('userIconInput', 'userIconPreview')">
+                                    <input type="file" id="userIconInput" accept="image/*" name="icon" onchange="previewImage('userIconInput', 'userIconPreview')">
                                     <img id="userIconPreview" src="#" alt="Profile Picture">
                                 </div>
                                 <div class="profile-details">
                                     <div class="mb-4">
-                                        <label for="playerName" class="text-gray-700 font-bold">Player Name:</label>
-                                        <input type="text" name="playerName" id="playerName" class="@error('playerName') border-red-500 @enderror w-full rounded-md shadow-sm" required>
-                                        @error('playerName')
+                                        <label for="name" class="text-gray-700 font-bold">Player Name:</label>
+                                        <input type="text" name="name" id="name" class="@error('name') border-red-500 @enderror w-full rounded-md shadow-sm" required>
+                                        @error('name')
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="mb-4">
-                                        <label for="tags" class="text-gray-700 font-bold">Tags (Comma separated):</label>
-                                        <input type="text" name="tags" id="tags" class="@error('tags') border-red-500 @enderror w-full rounded-md shadow-sm" required>
-                                        @error('tags')
+                                        <label for="email" class="text-gray-700 font-bold">email:</label>
+                                        <input type="text" name="email" id="email" class="@error('email') border-red-500 @enderror w-full rounded-md shadow-sm" required>
+                                        @error('email')
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="mb-4">
-                                        <label for="playStyle" class="text-gray-700 font-bold">Play Style:</label>
-                                        <textarea name="playStyle" id="playStyle" class="@error('playStyle') border-red-500 @enderror w-full rounded-md shadow-sm"></textarea>
-                                        @error('playStyle')
+                                        <label for="tag" class="text-gray-700 font-bold">Tags (Comma separated):</label>
+                                        <input type="text" name="tag" id="tag" class="@error('tag') border-red-500 @enderror w-full rounded-md shadow-sm" required>
+                                        @error('tag')
+                                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="introduction" class="text-gray-700 font-bold">Play Style:</label>
+                                        <textarea name="introduction" id="introduction" class="@error('introduction') border-red-500 @enderror w-full rounded-md shadow-sm"></textarea>
+                                        @error('introduction')
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -63,7 +70,7 @@
                                 <section id="favorite-cards" class="rounded-lg shadow-md">
                                     <h2 class="mt-4 text-2xl font-bold text-gray-800">FAVORITE Cards</h2>
                                     <div id="card" class="mt-4 grid grid-cols-1 gap-4 rounded-lg shadow-md">
-                                        <input type="file" id="favoriteCardInput" accept="image/*" onchange="previewImage('favoriteCardInput', 'favoriteCardPreview')" required>
+                                        <input type="file" id="favoriteCardInput" accept="image/*" name="favorite_card"  onchange="previewImage('favoriteCardInput', 'favoriteCardPreview')" required>
                                         <img id="favoriteCardPreview" src="#" width="372" height="520">
                                     </div>
                                 </section>

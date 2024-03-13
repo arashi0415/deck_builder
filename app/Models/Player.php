@@ -16,8 +16,8 @@ class Player extends Model
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'introduction' => 'nullable', 'string', 'max:1000',
-            'icon' => 'required|image|max:1024',
-            'favorite_card' => 'required|image|max:1024',
+            'icon' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'favorite_card' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'tag' => 'nullable|string|max:255|regex:/^[^,]+\,?(?<!,)$/',
             // ... other rules
         ];

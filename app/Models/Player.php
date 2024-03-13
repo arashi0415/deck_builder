@@ -4,22 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 use App\Http\Controllers\PlayerController;
 
 class Player extends Model
 {
-    protected $guarded = [
-        "user_id",
-    ];
 
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'introduction' => 'nullable', 'string', 'max:1000',
-        'icon' => 'required|image|max:1024',
-        'favorite_card' => 'required|image|max:1024',
-        'tag' => 'nullable', 'string', 'max:255', 'regex:/^[^,]+\,?(?<!,)$/'
-    ];
+    public static function validationRules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'introduction' => 'nullable', 'string', 'max:1000',
+            'icon' => 'required|image|max:1024',
+            'favorite_card' => 'required|image|max:1024',
+            'tag' => 'nullable|string|max:255|regex:/^[^,]+\,?(?<!,)$/',
+            // ... other rules
+        ];
+        
+    }
+
 
     protected $fillable = [
         'name',
@@ -28,8 +32,15 @@ class Player extends Model
         'icon',
         'favorite_card',
         'tag',
-        "registered"
+        'registered',
+        'user_id'
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 
     protected $casts = [

@@ -14,10 +14,10 @@
                             <div class="mt-6">
                                 <div id="profile-icon" class="rounded-full w-16 h-16">
                                     <input type="file" id="userIconInput" accept="image/*" name="icon" onchange="previewImage('userIconInput', 'userIconPreview')">
-                                    <img id="userIconPreview" src="#" alt="Profile Picture">
+                                    <img id="userIconPreview" src="#">
                                 </div>
                                 <div class="profile-details">
-                                    <div class="mb-4">
+                                    <div class="mt-16">
                                         <label for="name" class="text-gray-700 font-bold">Player Name:</label>
                                         <input type="text" name="name" id="name" class="@error('name') border-red-500 @enderror w-full rounded-md shadow-sm" required>
                                         @error('name')
@@ -39,7 +39,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-4">
-                                        <label for="introduction" class="text-gray-700 font-bold">Play Style:</label>
+                                        <label for="introduction" class="text-gray-700 font-bold">Introduction:</label>
                                         <textarea name="introduction" id="introduction" class="@error('introduction') border-red-500 @enderror w-full rounded-md shadow-sm"></textarea>
                                         @error('introduction')
                                             <span class="text-red-500 text-sm">{{ $message }}</span>

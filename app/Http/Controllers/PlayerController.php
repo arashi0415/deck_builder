@@ -43,15 +43,22 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
 {
+    $validatedData = $request->validate(Player::validationRules());
     $dir_icons = 'icons';
     $dir_favoriteCards = 'favoriteCards';
 
     // ファイル処理
-    $iconFileName = $request->file('icon')->getClientOriginalName();
-    $request->file('icon')->storeAs('public/' . $dir_icons, $iconFileName);
+    $icon = $validatedData['icon'];
+    $iconFileName = $icon->getClientOriginalName();
+    $icon->storeAs('public/' . $dir_icons, $iconFileName);
 
-    $favoriteCardFileName = $request->file('favorite_card')->getClientOriginalName();
-    $request->file('favorite_card')->storeAs('public/' . $dir_favoriteCards, $favoriteCardFileName);
+    $favoriteCard = $validatedData['favorite_card'];
+    $favoriteCardFileName = $favoriteCard->getClientOriginalName();
+    $favoriteCard->storeAs('public/' . $dir_favoriteCards, $favoriteCardFileName);
+    
+
+    // $favoriteCardFileName = $validatedData['favorite_card']->getClientOriginalName();
+    // $validatedData['favorite_card']->file('favorite_card')->storeAs('public/' . $dir_favoriteCards, $favoriteCardFileName);
 
     // Player モデルの作成と保存
     $player = new Player([
@@ -86,7 +93,34 @@ class PlayerController extends Controller
      */
     public function update(Request $request, Player $player)
     {
+        $userId = Auth::id();
+
+        if ($player->id !== $userId) {
+            abort(403); // 権限エラー
+        }
+
+
         $validatedData = $request->validate($player->rules());
+
+        $dir_icons = 'icons';
+        $dir_favoriteCards = 'favoriteCards';
+
+        if ($request->hasFile('icon')) {
+            $icon = $validatedData['icon'];
+            $iconFileName = $icon->getClientOriginalName();
+            $icon->storeAs('public/' . $dir_icons, $iconFileName);
+    
+            // 画像の名前を更新
+            $player->icon = $iconFileName;
+        }
+        if ($request->hasFile('icon')) {
+            $favoriteCard = $validatedData['favorite_card'];
+            $favoriteCardFileName = $favoriteCard->getClientOriginalName();
+            $favoriteCard->storeAs('public/' . $dir_favoriteCards, $favoriteCardFileName);
+    
+            // 画像の名前を更新
+            $player->icon = $favoriteCardFileName;
+        }
 
     // データを更新
     $player->update($validatedData);

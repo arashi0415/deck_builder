@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->default(NULL);
             $table->string('card_name');
             $table->string('my_card')->unique();
-            $table->string('title');
-            $table->string('number');
+            $table->integer('number');
         });
     }
 

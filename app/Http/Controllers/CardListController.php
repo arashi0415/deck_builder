@@ -25,7 +25,7 @@ class CardListController extends Controller
             $card->image_url = Storage::url($card->my_cards);
         }
         // ビューに渡す
-        return view('card_list', ['cards' => $cards]);
+        return view('card-list');
     }
 
     /**
@@ -33,7 +33,7 @@ class CardListController extends Controller
      */
     public function create()
     {
-        //
+        return view('register-card');
     }
 
     /**
@@ -41,22 +41,23 @@ class CardListController extends Controller
      */
     public function store(Request $request)
     {
+
         $dir_my_Card = 'my_Card';
 
-    // ファイル処理
-    $cardsFileName = $request->file('cards')->getClientOriginalName();
-    $request->file('cards')->storeAs('public/' . $dir_my_Card, $cardsFileName);
+        // ファイル処理
+        $cardsFileName = $request->file('cards')->getClientOriginalName();
+        $request->file('cards')->storeAs('public/' . $dir_my_Card, $cardsFileName);
 
-    
-    // Player モデルの作成と保存
-    $my_card = new myCard([
-        'my_Card' => $cardsFileName,
-        'user_id' => Auth::id(),
-    ] + $request->all()); // その他のフォームデータをすべて追加
 
-    $my_card->save();
+        // Player モデルの作成と保存
+        $my_card = new myCard([
+            'my_Card' => $cardsFileName,
+            'user_id' => Auth::id(),
+        ] + $request->all()); // その他のフォームデータをすべて追加
 
-    return redirect()->route('player.index', $my_card->id);
+        $my_card->save();
+
+        return redirect()->route('player.index', $my_card->id);
     }
 
     /**
@@ -82,11 +83,11 @@ class CardListController extends Controller
     {
         $validatedData = $request->validate($card_list->rules());
 
-    // データを更新
-    $card_list->update($validatedData);
+        // データを更新
+        $card_list->update($validatedData);
 
-    // 一覧画面にリダイレクト
-    return redirect()->route('card_list.index');
+        // 一覧画面にリダイレクト
+        return redirect()->route('card_list.index');
     }
 
     /**

@@ -17,7 +17,7 @@
                         <div class="card-upload-container">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p>カードをドラッグ&ドロップ</p>
-                            <input type="file" name="images[]" id="input-files" multiple>
+                            <input type="file" name="my_card" id="input-files" multiple>
                         </div>
                         <div class="uploaded-cards-container"></div>
                     </div>
@@ -26,7 +26,7 @@
                     
                     <div class="card-info-area" >
                         {{-- <input type="text" name="card_name" placeholder="カード名" >
-                        <input type="number" name="card_quantity" placeholder="枚数"> --}}
+                        <input type="number" name="number" placeholder="枚数"> --}}
                     </div>
                     <button type="submit" id="submit-btn">送信</button>
                 </form>
@@ -81,7 +81,7 @@
                 }
                 cardInfoArea.innerHTML = `
                 <input type="text" name="card_name" placeholder="カード名">
-                <input type="number" name="card_quantity" placeholder="枚数">
+                <input type="number" name="number" placeholder="枚数">
                 `;
                 uploadedCardWrapper.appendChild(cardInfoArea);
 
@@ -117,7 +117,7 @@
         const cardQuantityInput = cardWrapper.querySelector('.card-info-area input[name="card_quantity"]');
         if (cardNameInput && cardQuantityInput) {
             formData.append(`card_name_${index}`, cardNameInput.value);
-            formData.append(`card_quantity_${index}`, cardQuantityInput.value);
+            formData.append(`number_${index}`, cardQuantityInput.value);
         } else {
             console.error("Failed to find input elements.");
         }

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CardListController extends Controller
 {
-    /**
+    /**  
      * Display a listing of the resource.
      */
     public function index(Request $request)
@@ -17,17 +17,14 @@ class CardListController extends Controller
         // ユーザーIDを取得
         $userId = $request->user()->id;
 
-        // DBからカード情報を取得
-        $cards = DB::table('cards')
-            ->where('user_id', $userId)
-            ->get();
+        // ユーザーに紐づくカードを取得
+        $cards = card_list::where('user_id', $userId)->get();
 
         // 画像のURLを生成
         foreach ($cards as $card) {
-            $card->image_url = Storage::url('cards/' . $card->my_cards);
+            $card->image_url = Storage::url($card->my_cards);
         }
-
-        // カードリストを表示
+        // ビューに渡す
         return view('card_list', ['cards' => $cards]);
     }
 
@@ -44,7 +41,22 @@ class CardListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dir_my_Card = 'my_Card';
+
+    // ファイル処理
+    $cardsFileName = $request->file('cards')->getClientOriginalName();
+    $request->file('cards')->storeAs('public/' . $dir_my_Card, $cardsFileName);
+
+    
+    // Player モデルの作成と保存
+    $my_card = new myCard([
+        'my_Card' => $cardsFileName,
+        'user_id' => Auth::id(),
+    ] + $request->all()); // その他のフォームデータをすべて追加
+
+    $my_card->save();
+
+    return redirect()->route('player.index', $my_card->id);
     }
 
     /**
@@ -68,7 +80,13 @@ class CardListController extends Controller
      */
     public function update(Request $request, card_list $card_list)
     {
-        //
+        $validatedData = $request->validate($card_list->rules());
+
+    // データを更新
+    $card_list->update($validatedData);
+
+    // 一覧画面にリダイレクト
+    return redirect()->route('card_list.index');
     }
 
     /**

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('card_name');
             $table->string('my_card')->unique();
             $table->integer('number');
+            $table->timestamps();
         });
     }
 

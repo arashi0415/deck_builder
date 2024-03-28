@@ -20,6 +20,7 @@ class card_list extends Model
     }
 
     protected $fillable = [
+        'user_id',
         'card_name',
         'my_card',
         'title',

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\card_list;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,23 +41,23 @@ class CardListController extends Controller
      */
     public function store(Request $request)
     {
-
-        $dir_my_Card = 'my_Card';
-
+        $validatedData = $request->validate(card_list::validationRules());
+        $dir_cards = 'cards';
         // ファイル処理
-        $cardsFileName = $request->file('cards')->getClientOriginalName();
-        $request->file('cards')->storeAs('public/' . $dir_my_Card, $cardsFileName);
-
+        $my_card = $validatedData['my_card'];
+        $my_cardFileName = $my_card->getClientOriginalName();
+        $my_card->storeAs('public/' . $dir_cards, $my_cardFileName);
 
         // Player モデルの作成と保存
-        $my_card = new myCard([
-            'my_Card' => $cardsFileName,
+        $card_list = new card_list([
+            'my_card' => $my_cardFileName,
             'user_id' => Auth::id(),
+
         ] + $request->all()); // その他のフォームデータをすべて追加
+    
+        $card_list->save();
 
-        $my_card->save();
-
-        return redirect()->route('player.index', $my_card->id);
+        // return redirect()->route('card_register', $my_card->id);
     }
 
     /**

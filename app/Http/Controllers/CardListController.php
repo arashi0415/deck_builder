@@ -41,14 +41,20 @@ class CardListController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
+        $file = $request->file();
+        
         $validatedData = $request->validate(card_list::validationRules());
         $dir_cards = 'cards';
         // ファイル処理
+        
         $my_card = $validatedData['my_card'];
+        
         $my_cardFileName = $my_card->getClientOriginalName();
         $my_card->storeAs('public/' . $dir_cards, $my_cardFileName);
 
         // Player モデルの作成と保存
+        
         $card_list = new card_list([
             'my_card' => $my_cardFileName,
             'user_id' => Auth::id(),

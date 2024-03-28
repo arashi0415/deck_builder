@@ -38,7 +38,7 @@
 
 
 <script>
- const inputFiles = document.getElementById('input-files');
+  const inputFiles = document.getElementById('input-files');
     const uploadedCardsContainer = document.querySelector('.uploaded-cards-container');
     let isCardInfoAreaVisible = false; // Flag to control visibility
 
@@ -80,8 +80,8 @@
                     cardInfoArea.style.display = 'block'; // Show if flag is true
                 }
                 cardInfoArea.innerHTML = `
-                <input type="text" name="card_name" placeholder="カード名">
-                <input type="number" name="number" placeholder="枚数">
+                <input type="text" name="card_name[]" placeholder="カード名">
+                <input type="number" name="number[]" placeholder="枚数">
                 `;
                 uploadedCardWrapper.appendChild(cardInfoArea);
 
@@ -99,31 +99,4 @@
             cardInfoArea.style.display = isCardInfoAreaVisible ? 'block' : 'none';
         }
     });
-
-    // フォーム送信時にJavaScriptで収集されたデータを追加
-    document.getElementById('card-form').addEventListener('submit', function(event) {
-    // デフォルトのフォーム送信をキャンセル
-    event.preventDefault(); 
-
-    const formData = new FormData(this); // FormDataオブジェクトを作成
-
-    // LaravelのCSRFトークンをフォームデータに追加
-    
-
-    // 各カードの情報を収集してFormDataに追加
-    const cardWrappers = document.querySelectorAll('.uploaded-card-wrapper');
-    cardWrappers.forEach((cardWrapper, index) => {
-        const cardNameInput = cardWrapper.querySelector('.card-info-area input[name="card_name"]');
-        const cardQuantityInput = cardWrapper.querySelector('.card-info-area input[name="card_quantity"]');
-        if (cardNameInput && cardQuantityInput) {
-            formData.append(`card_name_${index}`, cardNameInput.value);
-            formData.append(`number_${index}`, cardQuantityInput.value);
-        } else {
-            console.error("Failed to find input elements.");
-        }
-    });
-
-    // ここでデフォルトのPOST送信をトリガー
-    this.submit();
-});
 </script>

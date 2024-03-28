@@ -47,7 +47,7 @@ class CardListController extends Controller
         $my_card = $validatedData['my_card'];
         $my_cardFileName = $my_card->getClientOriginalName();
         $my_card->storeAs('public/' . $dir_cards, $my_cardFileName);
-        
+
         // Player モデルの作成と保存
         $card_list = new card_list([
             'my_card' => $my_cardFileName,

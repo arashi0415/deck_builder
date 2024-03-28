@@ -12,12 +12,12 @@
                     @csrf  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <section id="profile" class="rounded-lg shadow-md">
                             <div class="mt-6">
-                                <div id="profile-icon" class="rounded-full w-16 h-16">
-                                    {{-- <input type="file" id="userIconInput" accept="image/*" name="icon" onchange="previewImage('userIconInput', 'userIconPreview')">
-                                    <img id="userIconPreview" src="#"> --}}
-                                    {{-- {!! Form::file('document', ['class' => 'form-control']) !!}--}}
-                                    <img src="{{ Storage::url('public/icons/' . $player->icon) }}" alt="My Image">
+                                <div id="profile-icon" class="rounded-full overflow-hidden">
+                                    <img src="{{ Storage::url('public/icons/' . $player->icon) }}" alt="My Image" class="object-cover w-16 h-16 rounded-full">
                                 </div>
+                                
+                                
+                                
                                 <div class="profile-details">
                                     <div class="mb-4">
                                         <label for="name" class="text-gray-700 font-bold">Player Name:</label>

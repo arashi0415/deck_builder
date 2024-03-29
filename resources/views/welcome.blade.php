@@ -5,7 +5,7 @@
             <ul class="hidden lg:flex items-center text-[18px] font-semibold pl-32">
                 
             </ul>
-            <div class=" text-center text-base pr-5  inline-flex"> <a href="#"
+            {{-- <div class=" text-center text-base pr-5  inline-flex"> <a href="#"
                     class="w-8 h-8 inline-block rounded-full pt-[6px] hover:text-blue-500"><i
                         class="fa fa-twitter"></i></a> <a href="#"
                     class="w-8 h-8 inline-block rounded-full pt-[5px] hover:text-blue-500"><i
@@ -16,7 +16,7 @@
                         class="fa fa-google"></i></a> <a href="#"
                     class="w-8 h-8 inline-block rounded-full pt-[5px] hover:text-blue-500"><i
                         class="fa fa-linkedin"></i></a> </div>
-        </div>
+        </div> --}}
     </nav>
 </div>
 <div class="relative right-10 top-10 flex justify-center p-8">
@@ -25,10 +25,10 @@
         <div class="flex flex-col lg:flex-row max-w-5xl justify-between items-center p-2 space-y-3">  <div class="flex flex-col items-center lg:text-left text-center justify-between space-y-6 px-8">
                 <div class="flex flex-col items-start space-y-3">
                     <div class="text-3xl md:text-5xl font-bold px-8">
-                        WELCOME
+                        WELCOME!
                     </div>
                     <div class="text-3xl text-orange-500 md:text-5xl font-bold px-8">
-                        This Start
+                        Deck Builder
                     </div>
                     <div class="h-1 rounded-2xl w-20 bg-orange-500 ml-10"></div>
                 </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="flex space-x-2 md:space-x-6 relative w-1/2">
                 <div class="flex justify-center items-center">
-                    <img src="{{ Storage::url('default/card_bulider.png') }}" alt="" class="w-full h-full object-cover md:max-w-lg md:max-h-lg lg:max-w-md lg:max-h-md" />
+                    <img src="{{ asset('storage/wallpaper/card_builder.png') }}">
 
                     {{-- <img src="{{ asset('default/card_bulider.png') }}" alt="" class="w-full h-full object-cover md:max-w-lg md:max-h-lg lg:max-w-md lg:max-h-md" /> --}}
                 </div>

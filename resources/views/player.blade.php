@@ -15,7 +15,7 @@
                                 <div id="profile-icon" class="rounded-full overflow-hidden">
                                     <img src="{{ asset('storage/icons/' . $player->icon) }}" alt="My Image" class="object-cover w-16 h-16 rounded-full">
                                 </div>
-                                
+                                <br>
                                 <div class="profile-details">
                                     <div class="mb-4">
                                         <label for="name" class="text-gray-700 font-bold">Player Name:</label>

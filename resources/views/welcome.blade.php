@@ -49,7 +49,7 @@
             </div>
             <div class="flex space-x-2 md:space-x-6 relative w-1/2">
                 <div class="flex justify-center items-center">
-                    <img src="{{ asset('storage/wallpaper/card_builder.png') }}" alt="Card Builder">
+                    <img src="{{ asset('storage/wallpaper/card_builder.png') }}">
 
                     {{-- <img src="{{ asset('default/card_bulider.png') }}" alt="" class="w-full h-full object-cover md:max-w-lg md:max-h-lg lg:max-w-md lg:max-h-md" /> --}}
                 </div>

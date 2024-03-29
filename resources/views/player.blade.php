@@ -13,10 +13,8 @@
                         <section id="profile" class="rounded-lg shadow-md">
                             <div class="mt-6">
                                 <div id="profile-icon" class="rounded-full overflow-hidden">
-                                    <img src="{{ Storage::url('public/icons/' . $player->icon) }}" alt="My Image" class="object-cover w-16 h-16 rounded-full">
+                                    <img src="{{ asset('storage/icons/' . $player->icon) }}" alt="My Image" class="object-cover w-16 h-16 rounded-full">
                                 </div>
-                                
-                                
                                 
                                 <div class="profile-details">
                                     <div class="mb-4">
@@ -77,7 +75,7 @@
                                     <h2 class="mt-4 text-2xl font-bold text-gray-800">FAVORITE Cards</h2>
                                     <div id="card" class="mt-4 grid grid-cols-1 gap-4 rounded-lg shadow-md">
                                         {{-- <input type="file" id="favoriteCardInput" accept="image/*" name="favorite_card"  onchange="previewImage('favoriteCardInput', 'favoriteCardPreview')" required> --}}
-                                        <img src="{{ Storage::url('public/favoriteCards/' . $player->Favorite_card) }}" alt="My Image">
+                                        <img src="{{ asset('storage/favoriteCards/' . $player->Favorite_card) }}" alt="My Image">
                                         {{-- <img id="favoriteCardPreview" src="#" width="372" height="520"> --}}
                                     </div>
                                 </section>

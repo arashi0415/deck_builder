@@ -61,7 +61,7 @@ class CardListController extends Controller
                 'user_id' => Auth::id(),
             ]);
             $card_list->save();
-            return redirect()->route('cardlist.index');
+            return redirect()->route('card_list.index');
         }
 
         // Player モデルの作成と保存

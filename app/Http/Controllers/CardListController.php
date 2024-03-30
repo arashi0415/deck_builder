@@ -52,6 +52,7 @@ class CardListController extends Controller
             // 画像ファイル名の取得と保存
             $my_cardFileName = $validatedData['my_card'][$i]->getClientOriginalName();
             $validatedData['my_card'][$i]->storeAs('public/' . $dir_cards, $my_cardFileName);
+            dd($request);
         
             // データベースへのインサート
             $card_list = new card_list([
@@ -59,6 +60,7 @@ class CardListController extends Controller
                 'number' => $validatedData['number'][$i],
                 'my_card' => $my_cardFileName,
                 'user_id' => Auth::id(),
+
             ]);
             $card_list->save();
             return redirect()->route('card_list.index');

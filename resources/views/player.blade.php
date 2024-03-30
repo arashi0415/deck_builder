@@ -49,7 +49,8 @@
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror --}}
                                     </div>
-                                    <button type="submit" class="bg-blue-600 text-black rounded-md px-1 py-1 border border-blue-600 hover:border-blue-700">Player Profile</button>
+                                    <img src="{{ asset('storage/qr/809197.png') }}" class="object-cover w-16 h-16 rounded-full">
+                                    {{-- <button type="submit" class="bg-blue-600 text-black rounded-md px-1 py-1 border border-blue-600 hover:border-blue-700">Player Profile</button> --}}
                                 </div>
                             </div>
                             <script>

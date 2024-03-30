@@ -46,13 +46,11 @@ class CardListController extends Controller
         
         $dir_cards = 'cards';
 
-
-
         for ($i = 0; $i < count($validatedData['card_name']); $i++) {
             // 画像ファイル名の取得と保存
             $my_cardFileName = $validatedData['my_card'][$i]->getClientOriginalName();
             $validatedData['my_card'][$i]->storeAs('public/' . $dir_cards, $my_cardFileName);
-            dd($request);
+            // dd($request);
         
             // データベースへのインサート
             $card_list = new card_list([

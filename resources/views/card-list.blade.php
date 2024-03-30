@@ -25,7 +25,7 @@
                                 @endforeach
                             </div>
                         @else
-                            <p>No cards found.</p>
+                            <p>まだ登録されていません！</p>
                         @endif
                     </div>
                 </div>

@@ -35,48 +35,28 @@ class CardListController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // dd($request);
-        
+    {        
         $validatedData = $request->validate(card_list::validationRules());
-        
-        // $card_name = $validatedData['card_name'];
-        // $card_number = $validatedData['number'];
-        // $my_card = $validatedData['my_card'];
-        
+            
         $dir_cards = 'cards';
-
-        for ($i = 0; $i < count($validatedData['card_name']); $i++) {
+    
+        foreach ($validatedData['card_name'] as $key => $value) {
             // 画像ファイル名の取得と保存
-            $my_cardFileName = $validatedData['my_card'][$i]->getClientOriginalName();
-            $validatedData['my_card'][$i]->storeAs('public/' . $dir_cards, $my_cardFileName);
-            // dd($request);
+            $my_cardFileName = $validatedData['my_card'][$key]->getClientOriginalName();
+            $validatedData['my_card'][$key]->storeAs('public/' . $dir_cards, $my_cardFileName);
         
             // データベースへのインサート
             $card_list = new card_list([
-                'card_name' => $validatedData['card_name'][$i],
-                'number' => $validatedData['number'][$i],
+                'card_name' => $validatedData['card_name'][$key],
+                'number' => $validatedData['number'][$key],
                 'my_card' => $my_cardFileName,
                 'user_id' => Auth::id(),
-
+    
             ]);
             $card_list->save();
-            return redirect()->route('card_list.index');
         }
-
-        // Player モデルの作成と保存
-
-        
-        
-        // $card_list = new card_list([
-        //     'my_card' => $my_cardFileName,
-        //     'user_id' => Auth::id(),
-
-        // ] + $request->all()); // その他のフォームデータをすべて追加
     
-        // $card_list->save();
-
-        // return redirect()->route('card_register', $my_card->id);
+        return redirect()->route('card_list.index');
     }
 
     /**

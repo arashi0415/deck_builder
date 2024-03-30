@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CardListController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlayerController;
@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('player', PlayerController::class);
     Route::resource('card_list', CardListController::class);
     Route::post('/card_list', [CardListController::class, 'store'])->name('card_list.store');
+    Route::resource('search', SearchController::class);
 });
 
 require __DIR__.'/auth.php';

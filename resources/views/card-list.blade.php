@@ -9,8 +9,26 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" style="height: 1000px;">
+                <div class="mb-4">
+                    <div class="mb-4">
+                        @if (count($cards) > 0)
+                            <div class="grid grid-cols-6 gap-6">
+                                @foreach ($cards as $card)
+                                    <div class="card" >
+                                        <img src="{{ asset('storage/cards/' . $card->my_card) }}" alt="" class="h-22  object-cover">
+                                        <div class="">
+                                            <p class="">カード名:{{ $card->card_name }}</p>
+                                            <p class="">{{ $card->number }}枚</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <p>No cards found.</p>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

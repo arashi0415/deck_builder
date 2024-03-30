@@ -17,7 +17,7 @@
                         <div class="card-upload-container">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p>カードをドラッグ&ドロップ</p>
-                            <input type="file" name="my_card" id="input-files" multiple>
+                            <input type="file" name="my_card[]" id="input-files" multiple>
                         </div>
                         <div class="uploaded-cards-container"></div>
                     </div>

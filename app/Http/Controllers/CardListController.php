@@ -19,13 +19,8 @@ class CardListController extends Controller
 
         // ユーザーに紐づくカードを取得
         $cards = card_list::where('user_id', $userId)->get();
-
-        // 画像のURLを生成
-        foreach ($cards as $card) {
-            $card->image_url = Storage::url($card->my_cards);
-        }
         // ビューに渡す
-        return view('card-list');
+        return view('card-list', compact('cards'));
     }
 
     /**
@@ -41,27 +36,45 @@ class CardListController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        $file = $request->file();
+        // dd($request);
         
         $validatedData = $request->validate(card_list::validationRules());
+        
+        // $card_name = $validatedData['card_name'];
+        // $card_number = $validatedData['number'];
+        // $my_card = $validatedData['my_card'];
+        
         $dir_cards = 'cards';
-        // ファイル処理
+
+
+
+        for ($i = 0; $i < count($validatedData['card_name']); $i++) {
+            // 画像ファイル名の取得と保存
+            $my_cardFileName = $validatedData['my_card'][$i]->getClientOriginalName();
+            $validatedData['my_card'][$i]->storeAs('public/' . $dir_cards, $my_cardFileName);
         
-        $my_card = $validatedData['my_card'];
-        
-        $my_cardFileName = $my_card->getClientOriginalName();
-        $my_card->storeAs('public/' . $dir_cards, $my_cardFileName);
+            // データベースへのインサート
+            $card_list = new card_list([
+                'card_name' => $validatedData['card_name'][$i],
+                'number' => $validatedData['number'][$i],
+                'my_card' => $my_cardFileName,
+                'user_id' => Auth::id(),
+            ]);
+            $card_list->save();
+            return redirect()->route('cardlist.index');
+        }
 
         // Player モデルの作成と保存
-        
-        $card_list = new card_list([
-            'my_card' => $my_cardFileName,
-            'user_id' => Auth::id(),
 
-        ] + $request->all()); // その他のフォームデータをすべて追加
+        
+        
+        // $card_list = new card_list([
+        //     'my_card' => $my_cardFileName,
+        //     'user_id' => Auth::id(),
+
+        // ] + $request->all()); // その他のフォームデータをすべて追加
     
-        $card_list->save();
+        // $card_list->save();
 
         // return redirect()->route('card_register', $my_card->id);
     }

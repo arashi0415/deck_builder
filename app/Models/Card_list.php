@@ -11,10 +11,12 @@ class card_list extends Model
     public static function validationRules()
     {
         return [
-            'card_name' => 'required|string|max:255',
-            'my_card' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'title' => 'nullable', 'string', 'max:1000',
-            'number' => 'nullable', 'string', 'max:1000',
+            'card_name' => 'required|array',
+            'card_name.*' => 'required|string|max:255',
+            'number' => 'required|array',
+            'number.*' => 'required|string|max:255',
+            'my_card' => 'required|array',
+            'my_card.*' => 'file|mimes:jpg,jpeg,png|',
             // ... other rules
         ];        
     }
@@ -23,7 +25,6 @@ class card_list extends Model
         'user_id',
         'card_name',
         'my_card',
-        'title',
         'number',
     ];
 
